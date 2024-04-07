@@ -1,116 +1,54 @@
-.roboto-thin {
-    font-family: "Roboto", sans-serif;
-    font-weight: 100;
-    font-style: normal;
-  }
-  
-  .roboto-light {
-    font-family: "Roboto", sans-serif;
-    font-weight: 300;
-    font-style: normal;
-  }
-  
-  .roboto-regular {
-    font-family: "Roboto", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-  }
-  
-  .roboto-medium {
-    font-family: "Roboto", sans-serif;
-    font-weight: 500;
-    font-style: normal;
-  }
-  
-  .roboto-bold {
-    font-family: "Roboto", sans-serif;
-    font-weight: 700;
-    font-style: normal;
-  }
-  
-  .roboto-black {
-    font-family: "Roboto", sans-serif;
-    font-weight: 900;
-    font-style: normal;
-  }
-  
-  .roboto-thin-italic {
-    font-family: "Roboto", sans-serif;
-    font-weight: 100;
-    font-style: italic;
-  }
-  
-  .roboto-light-italic {
-    font-family: "Roboto", sans-serif;
-    font-weight: 300;
-    font-style: italic;
-  }
-  
-  .roboto-regular-italic {
-    font-family: "Roboto", sans-serif;
-    font-weight: 400;
-    font-style: italic;
-  }
-  
-  .roboto-medium-italic {
-    font-family: "Roboto", sans-serif;
-    font-weight: 500;
-    font-style: italic;
-  }
-  
-  .roboto-bold-italic {
-    font-family: "Roboto", sans-serif;
-    font-weight: 700;
-    font-style: italic;
-  }
-  
-  .roboto-black-italic {
-    font-family: "Roboto", sans-serif;
-    font-weight: 900;
-    font-style: italic;
-  }
-
-/* Estilo global para asegurar que el body no tenga margen */
 body {
     margin: 0;
     padding: 0;
     overflow-x: hidden; /* Evita el desbordamiento horizontal */
 }
 
+#login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+
 #progress-container {
+    display: none; /* Se oculta inicialmente y se muestra después del login */
     width: 100%;
     background-color: #ddd;
-    position: relative;
+    position: relative; /* Posicionamiento relativo para los elementos internos */
     margin: 0; /* Elimina el margen */
     padding: 0; /* Elimina el padding */
 }
 
 #progress-bar {
-    width: 100%;
-    height: 30px;
-    background-color: #4CAF50;
-    transition: width 1s;
-    color: white;
-    position: relative;
-    margin: 0; /* Asegúrate de que no haya margen dentro de la barra */
-}
-
-#elapsed-time {
-    position: absolute;
-    right: 0;
-    top: 0;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    padding-right: 10px; /* Ajusta o elimina si es necesario para el diseño */
-    color: #333;
-    background-color: #ddd;
-}
-
-#event-title {
-    padding-left: 10px; /* Asegúrate de que el título tenga algo de espacio */
+    height: 15px; /* Ajusta la altura de la barra */
+    background-color: #4CAF50; /* Color inicial de la barra */
+    transition: width 1s; /* Suaviza la transición de la barra */
+    color: white; /* Color del texto dentro de la barra */
+    display: flex; /* Permite la alineación de elementos internos */
+    align-items: center; /* Centra el contenido verticalmente */
+    justify-content: center; /* Centra el contenido horizontalmente */
+    font-size: 12px; /* Ajusta esto según sea necesario para que encaje en 15px de alto */
+    white-space: nowrap; /* Asegura que el texto no se envuelva a una nueva línea */
 }
 
 #progress-percentage {
-    padding-right: 10px; /* Asegúrate de que el porcentaje tenga algo de espacio */
+    padding: 0 5px; /* Espacio alrededor del texto dentro de la barra */
 }
+
+
+/* Añadir cualquier estilo adicional para el botón y otros elementos como necesario */
+#sampleRequestButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Asegura que #events también se oculta inicialmente si es necesario */
+#events {
+    display: none; /* O manejarlo en JS según sea necesario */
+}
+
+
+
