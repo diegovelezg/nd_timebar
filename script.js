@@ -82,15 +82,17 @@ function oauth2SignIn() {
         form.submit();
     }
 }
-// Asegúrate de que loadEvents está definida para recargar y pasar los eventos a displayEvents
+
 function loadEvents(accessToken) {
-    var now = new Date().toISOString();
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'https://www.googleapis.com/calendar/v3/calendars/primary/events?timeMin=' + now + '&maxResults=10&orderBy=startTime&singleEvents=true');
+    xhr.open('GET', 'https://www.googleapis.com/calendar/v3/calendars/primary/events?timeMin=' + (new Date()).toISOString() + '&maxResults=10&orderBy=startTime&singleEvents=true');
     xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
-            displayEvents(JSON.parse(xhr.responseText).items);
+            var events = JSON.parse(xhr.responseText).items;
+            // Filtrar eventos de todo el día
+            var filteredEvents = events.filter(event => !event.start.date || event.start.dateTime);
+            displayEvents(filteredEvents);
         } else if (xhr.readyState === 4) {
             console.error('Error loading events: ' + xhr.responseText);
         }
@@ -100,19 +102,22 @@ function loadEvents(accessToken) {
 
 function displayEvents(events) {
     const now = new Date();
-    const currentEvent = events.find(event => new Date(event.start.dateTime || event.start.date) <= now && new Date(event.end.dateTime || event.end.date) > now);
-    const nextEvent = events.find(event => new Date(event.start.dateTime || event.start.date) > now);
+    const currentEvent = events.find(event => new Date(event.start.dateTime) <= now && new Date(event.end.dateTime) > now);
+    const nextEvent = events.find(event => new Date(event.start.dateTime) > now);
 
     if (currentEvent) {
-        const startTime = new Date(currentEvent.start.dateTime || currentEvent.start.date);
-        const endTime = new Date(currentEvent.end.dateTime || currentEvent.end.date);
-        updateProgressBar(startTime, endTime, '#0000FF', currentEvent.summary, events); // Azul para evento actual
+        const startTime = new Date(currentEvent.start.dateTime);
+        const endTime = new Date(currentEvent.end.dateTime);
+        updateProgressBar(startTime, endTime, '#0000FF', currentEvent.summary); // Azul para evento actual
     } else if (nextEvent) {
         const startTime = now;
-        const endTime = new Date(nextEvent.start.dateTime || nextEvent.start.date);
-        updateProgressBar(startTime, endTime, '#008000', `Siguiente: ${nextEvent.summary}`, events); // Verde para el próximo evento
+        const endTime = new Date(nextEvent.start.dateTime);
+        updateProgressBar(startTime, endTime, '#008000', `Siguiente: ${nextEvent.summary}`); // Verde para el próximo evento
     }
 }
+
+
+
 function updateProgressBar(startTime, endTime, barColor, title) {
     const progressBar = document.getElementById('progress-bar');
     const progressTimeLeft = document.getElementById('progress-percentage');
