@@ -34,7 +34,7 @@ function trySampleRequest() {
 }
 
 var YOUR_CLIENT_ID = '523272931-kjks2l3eimgi2oqll2eovj6top6meb40.apps.googleusercontent.com';
-var YOUR_REDIRECT_URI = 'http://localhost:5500';
+var YOUR_REDIRECT_URI = 'https://diegovelezg.github.io/nd_timebar/';
 var fragmentString = location.hash.substring(1);
 
 // Parse query string to see if page request is coming from OAuth 2.0 server.
